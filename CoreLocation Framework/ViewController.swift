@@ -10,9 +10,8 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController{
+class ViewController: UIViewController, CLLocationManager{
     @IBOutlet weak var myMapView: MKMapView!
-    
     //위치
     var locationManager = CLLocationManager()
     override func viewDidLoad() {
@@ -52,6 +51,14 @@ class ViewController: UIViewController{
         myMapView.addAnnotation(dit)
         myMapView.addAnnotation(bp)
         myMapView.addAnnotation(sq)
+        
+        
     }
+    //위치정보 계속 보여줌.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        print(locations[0].coordinate.latitude)
+        print(locations[0].coordinate.latitude)
+    }
+    
 }
 
