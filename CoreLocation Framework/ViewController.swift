@@ -8,17 +8,31 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class ViewController: UIViewController, MKMapViewDelegate{
+class ViewController: UIViewController{
     @IBOutlet weak var myMapView: MKMapView!
     
+    //위치
+    var locationManager = CLLocationManager()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //위치 트래킹 시작
+        locationManager.startUpdatingLocation()
+        
+        //보안 풀기 => 작동을 위해서. plist에
+        //Privacy - Location Always and When In Use Usage Description
+        //Privacy - Location When In Use Usage Description 추가.
+        locationManager.requestAlwaysAuthorization()
+        
+        //현재 위치 표시
+        myMapView.showsUserLocation = true
+        
         let center = CLLocationCoordinate2DMake(35.166197, 129.072594)
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: center, span: span)
         myMapView.setRegion(region, animated: true)
-        
         
         //pin
         let dit = MKPointAnnotation()
@@ -38,12 +52,6 @@ class ViewController: UIViewController, MKMapViewDelegate{
         myMapView.addAnnotation(dit)
         myMapView.addAnnotation(bp)
         myMapView.addAnnotation(sq)
-        myMapView.delegate = self
-        
-        
     }
-    
-
-
 }
 
